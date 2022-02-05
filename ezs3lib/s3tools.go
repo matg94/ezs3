@@ -1,4 +1,4 @@
-package ezs3
+package ezs3lib
 
 import (
 	"os"

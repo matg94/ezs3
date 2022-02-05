@@ -1,3 +1,3 @@
-module github.com/matg94/ezs3/ezs3-lib
+module github.com/matg94/ezs3
 
 go 1.17

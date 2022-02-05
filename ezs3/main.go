@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/matg94/ezs3-lib"
+	ezs3 "github.com/matg94/ezs3/ezs3lib"
 )
 
 func main() {
