@@ -1,4 +1,4 @@
-package s3tools
+package main
 
 import (
 	"os"

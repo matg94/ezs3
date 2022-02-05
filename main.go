@@ -4,8 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"strings"
-
-	s3tools "github.com/matg94/ezs3/S3Tools"
 )
 
 func main() {
@@ -40,7 +38,7 @@ func main() {
 		fmt.Println("Missing config. Need endpoint, bucket, and filepath defined. ezs3 -h for more information.")
 	}
 
-	s3Connection := s3tools.ConnectS3(bucket, endpoint, strings.Split(endpoint, "-")[0])
+	s3Connection := ConnectS3(bucket, endpoint, strings.Split(endpoint, "-")[0])
 
 	if download {
 		err := s3Connection.DownloadFile(origin, target)
