@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	ezs3 "github.com/matg94/ezs3/ezs3lib"
+	"github.com/matg94/ezs3/ezs3lib"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
 		fmt.Println("Missing config. Need endpoint, bucket, and filepath defined. ezs3 -h for more information.")
 	}
 
-	s3Connection := ezs3.ConnectS3(bucket, endpoint, strings.Split(endpoint, "-")[0])
+	s3Connection := ezs3lib.ConnectS3(bucket, endpoint, strings.Split(endpoint, "-")[0])
 
 	if download {
 		err := s3Connection.DownloadFile(origin, target)
