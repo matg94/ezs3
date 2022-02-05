@@ -1,4 +1,4 @@
-package main
+package ezs3
 
 import (
 	"os"
