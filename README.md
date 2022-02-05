@@ -53,10 +53,15 @@ Usage of ezs3:
 ## Examples
 
 Uploading `config/prod.yaml` to S3 folder `config/production/application.yaml`:
+
 `ezs3 -upload -e <endpoint> -b <bucketname> -f config/prod.yaml -t config/production/application.yaml`
 
+
 Download `config/production/application.yaml` to `config/application.yaml`:
+
 `ezs3 -download -e <endpoint> -b <bucketname> -f config/production/application.yaml -t config/application.yaml`
 
+
 Deleting `config/production/application.yaml` in S3:
+
 `ezs3 -delete -e <endpoint> -b <bucketname> -f config/production/application.yaml`
