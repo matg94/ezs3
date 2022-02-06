@@ -29,8 +29,11 @@ If you do not set a `-t` flag, the default will be whatever you've put as `-f`.
 
 deletion just uses to `-f` path, and will delete the file in S3 at that location.
 
+`ezs3` can use the bucket and endpoint from your environment. These would need to be set under the names
+`AWS_BUCKET`, and `AWS_ENDPOINT`, respectively.
 
 You will need to set the `-e endpoint -b bucketname` flags as well.
+
 
 ```
 Usage of ezs3:
