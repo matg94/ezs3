@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/matg94/ezs3/ezs3lib"
@@ -27,8 +28,9 @@ func main() {
 
 	flag.Parse()
 
-	if target == "-" {
-		target = origin
+	if !upload && !download && !delete {
+		fmt.Println("No action has been set. Check -h for help.")
+		return
 	}
 
 	if (upload && download) || (upload && delete) {
@@ -36,8 +38,31 @@ func main() {
 		return
 	}
 
-	if endpoint == "-" || bucket == "-" || origin == "-" {
-		fmt.Println("Missing config. Need endpoint, bucket, and filepath defined. ezs3 -h for more information.")
+	if target == "-" {
+		target = origin
+	}
+
+	if endpoint == "-" {
+		if os.Getenv("AWS_ENDPOINT") != "" {
+			endpoint = os.Getenv("AWS_ENDPOINT")
+		} else {
+			fmt.Println("Endpoint not found in either command or environment. Set env var AWS_ENDPOINT or use -e.")
+			return
+		}
+	}
+
+	if bucket == "-" {
+		if os.Getenv("AWS_BUCKET") != "" {
+			bucket = os.Getenv("AWS_BUCKET")
+		} else {
+			fmt.Println("Bucket not found in either command or environment. Set env var AWS_BUCKET or use -b.")
+			return
+		}
+	}
+
+	if origin == "-" {
+		fmt.Println("File origin not set. Use -f to set filepath, or check -h for help.")
+		return
 	}
 
 	s3Connection := ezs3lib.ConnectS3(bucket, endpoint, strings.Split(endpoint, "-")[0])
