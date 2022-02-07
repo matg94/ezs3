@@ -28,10 +28,6 @@ func main() {
 
 	flag.Parse()
 
-	args := flag.Args()
-
-	fmt.Println(args[0]) // Use this as action instead of flags for upload/download/delete
-
 	if !upload && !download && !delete {
 		fmt.Println("No action has been set. Check -h for help.")
 		return
