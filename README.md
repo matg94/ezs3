@@ -15,6 +15,7 @@ You can run `ezs3 -h` to see more information about usage.
 ### Setting up Credentials
 
 This CLI will use credentials in `~/.aws/credentials`, to authenticate with S3.
+Alternatively, you can export them to env as `AWS_ACCESS_KEY_ID`, and `AWS_SECRET_ACCESS_KEY`
 
 ### Flags
 

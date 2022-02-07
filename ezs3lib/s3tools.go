@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
@@ -19,17 +20,31 @@ type S3Connection struct {
 
 func ConnectS3(bucket string, endpoint string, region string) *S3Connection {
 
-	s := session.Must(session.NewSession(&aws.Config{
-		Region:   &region,
-		Endpoint: &endpoint,
-	}))
+	var sesh *session.Session
 
-	uploader := s3manager.NewUploader(s)
-	downloader := s3manager.NewDownloader(s)
-	deleter := s3manager.NewBatchDelete(s)
+	if os.Getenv("AWS_ACCESS_KEY_ID") != "" && os.Getenv("AWS_SECRET_ACCESS_KEY") != "" {
+		sesh = session.Must(session.NewSession(&aws.Config{
+			Credentials: credentials.NewStaticCredentials(
+				os.Getenv("AWS_ACCESS_KEY_ID"),
+				os.Getenv("AWS_SECRET_ACCESS_KEY"),
+				"",
+			),
+			Region:   &region,
+			Endpoint: &endpoint,
+		}))
+	} else {
+		sesh = session.Must(session.NewSession(&aws.Config{
+			Region:   &region,
+			Endpoint: &endpoint,
+		}))
+	}
+
+	uploader := s3manager.NewUploader(sesh)
+	downloader := s3manager.NewDownloader(sesh)
+	deleter := s3manager.NewBatchDelete(sesh)
 
 	return &S3Connection{
-		session:    s,
+		session:    sesh,
 		uploader:   uploader,
 		downloader: downloader,
 		deleter:    deleter,
